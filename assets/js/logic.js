@@ -1,84 +1,30 @@
-let startButton = document.querySelector("#start")
-let timerElement = document.querySelector("#time")
-let questionTitle = document.querySelector(".question-title")
-let questionChoices = document.querySelector(".choices")
-let questionContent = document.querySelector(".questions");
-
-
-let score;
-let timerCount;
-let currentQuestionIndex = 0;
-let questions = [
+// Questions array
+const questions = [
     {
-        question: "Sample Question 1",
-        options: ["Option A", "Option B", "Option C"],
-        correctAnswer: "Option A"
+      question: "What does HTML stand for?",
+      choices: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
+      correctAnswer: "Hyper Text Markup Language"
     },
     {
-        question: "Sample Question 2",
-        options: ["Option X", "Option Y", "Option Z"],
-        correctAnswer: "Option Z"
+      question: "Which language is used for styling web pages?",
+      choices: ["HTML", "CSS", "JavaScript"],
+      correctAnswer: "CSS"
     },
-];
-
-
-function startGame() {
-    timerCount = 5;
-    score = 0;
-    startTimer();
-    displayQuestion();
-
-}
-
-function startTimer() {
-    let timer = setInterval(function () {
-        timerCount--;
-        timerElement.textContent = timerCount;
-        if (timerCount === 0) {
-            clearInterval(timer);
-            timerElement.textContent = "Time up";
-        }
-    }, 1000);
-}
-
-function displayQuestion() {
-    if (currentQuestionIndex < questions.length) {
-        const currentQuestion = questions[currentQuestionIndex];
-
-        questionTitle.textContent = `Question ${currentQuestionIndex + 1}`;
-        questionContent.textContent = currentQuestion.question;
-
-        questionChoices.innerHTML = "";
-        currentQuestion.options.forEach((option) => {
-            const listItem = document.createElement("li");
-            listItem.textContent = option;
-            listItem.addEventListener("click", () => checkAnswer(option));
-            questionChoices.appendChild(listItem); // Updated to questionChoices
-        });
-    } else {
-        questionContent.textContent = "Quiz complete";
-        questionChoices.innerHTML = ""; // Updated to questionChoices
+    {
+      question: "Which programming language is often used for web development?",
+      choices: ["Python", "Java", "JavaScript"],
+      correctAnswer: "JavaScript"
     }
-}
+  ];
 
-
-function checkAnswer(selectedOption) {
-    const currentQuestion = questions[currentQuestionIndex];
-    if (selectedOption === currentQuestion.correctAnswer) {
-        score += 10;
-    } else {
-        timerCount -= 2;
-        if (timerCount < 0) {
-            timerCount = 0;
-        }
-        }
-
-    currentQuestionIndex++;
-    displayQuestion();
-}
-
-// Event listener to start game when button is pressed
-startButton.addEventListener("click", startGame);
+const startButton = document.getElementById("start");
+const questionsContainer = document.getElementById("questions");
+const choicesContainer = document.getElementById("choices");
+const timerElement = document.getElementById("time");
+const finalScoreElement = document.getElementById("final-score");
+const initialsInput = document.getElementById("initials");
+const submitButton = document.getElementById("submit");
+const feedbackElement = document.getElementById("feedback");
 
 // PSEUDOCODE - GENERAL GAME LOGIC
 // When start button is pressed, timer starts and first question appears
