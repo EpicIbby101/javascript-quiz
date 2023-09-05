@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Iterate through the high scores and create list items to display them
   highScores.forEach((userData, index) => {
     const listItem = document.createElement("li");
-    listItem.textContent = `${index + 1}. ${userData.initials}: ${userData.score}`;
+    listItem.textContent = ` ${userData.initials}: ${userData.score} points`;
     highscoresList.appendChild(listItem);
   });
 

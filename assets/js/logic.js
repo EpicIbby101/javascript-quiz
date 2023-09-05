@@ -46,11 +46,13 @@ const questions = [
   },
 ];
 
+// Variables for game
 let currentQuestionIndex = 0;
 let timer;
-let timeRemaining = 60;
+let timeRemaining = 30;
 let score = 0;
 
+// Initialize game
 function startQuiz() {
   startButton.style.display = "none";
   questionsContainer.style.display = "block";
@@ -58,6 +60,9 @@ function startQuiz() {
   startTimer();
 }
 
+startButton.addEventListener("click", startQuiz);
+
+// Function to display the questions from array
 function displayQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
   document.getElementById("question-title").textContent =
@@ -72,6 +77,7 @@ function displayQuestion() {
   });
 }
 
+// Logic to check if the answer is correct, then show next question
 function checkAnswer(choice) {
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -92,6 +98,7 @@ function checkAnswer(choice) {
   }
 }
 
+// Logic for timer
 function startTimer() {
   timer = setInterval(() => {
     timeRemaining--;
@@ -103,6 +110,7 @@ function startTimer() {
   }, 1000);
 }
 
+// Logic for the end of the quiz and to submit your highscore
 function endQuiz() {
   clearInterval(timer);
   questionsContainer.style.display = "none";
@@ -143,7 +151,6 @@ function saveScore() {
   }
 }
 
-startButton.addEventListener("click", startQuiz);
 
 // PSEUDOCODE - GENERAL GAME LOGIC
 // When start button is pressed, timer starts and first question appears
