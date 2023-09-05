@@ -5,37 +5,47 @@ let questionChoices = document.querySelector(".choices")
 let questionContent = document.querySelector(".questions");
 
 
-
 let score;
 let timerCount;
 let currentQuestionIndex = 0;
+let questions = [
+    {
+        question: "Sample Question 1",
+        options: ["Option A", "Option B", "Option C"],
+        correctAnswer: "Option A"
+    },
+    {
+        question: "Sample Question 2",
+        options: ["Option X", "Option Y", "Option Z"],
+        correctAnswer: "Option Z"
+    },
+];
+
 
 function startGame() {
     timerCount = 5;
     score = 0;
     startTimer();
+    displayQuestion();
 
 }
 
 function startTimer() {
-    timer = setInterval(function() {
+    let timer = setInterval(function () {
         timerCount--;
         timerElement.textContent = timerCount;
         if (timerCount === 0) {
-            clearInterval(timer)
-            timerElement.textContent = "Time up"
+            clearInterval(timer);
+            timerElement.textContent = "Time up";
         }
-    }, 1000)
+    }, 1000);
 }
 
 function displayQuestion() {
-    const questionTitle = document.getElementById("#question-title")
-    const questionContent = document.getElementById("#questions")
-    const questionChoices = document.getElementById('#choices')
-
     if (currentQuestionIndex < questions.length) {
         const currentQuestion = questions[currentQuestionIndex];
 
+        questionTitle.textContent = `Question ${currentQuestionIndex + 1}`;
         questionContent.textContent = currentQuestion.question;
 
         questionChoices.innerHTML = "";
@@ -43,14 +53,28 @@ function displayQuestion() {
             const listItem = document.createElement("li");
             listItem.textContent = option;
             listItem.addEventListener("click", () => checkAnswer(option));
-            optionsList.appendChild(listItem);
+            questionChoices.appendChild(listItem); // Updated to questionChoices
         });
     } else {
-        questionContent.textContent = "Quiz complete"
-        options.innerHTML = "";
-        document.getElementById()
+        questionContent.textContent = "Quiz complete";
+        questionChoices.innerHTML = ""; // Updated to questionChoices
     }
+}
 
+
+function checkAnswer(selectedOption) {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (selectedOption === currentQuestion.correctAnswer) {
+        score += 10;
+    } else {
+        timerCount -= 2;
+        if (timerCount < 0) {
+            timerCount = 0;
+        }
+        }
+
+    currentQuestionIndex++;
+    displayQuestion();
 }
 
 // Event listener to start game when button is pressed
