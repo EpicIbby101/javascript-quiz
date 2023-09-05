@@ -1,8 +1,14 @@
 let startButton = document.querySelector("#start")
 let timerElement = document.querySelector("#time")
+let questionTitle = document.querySelector(".question-title")
+let questionChoices = document.querySelector(".choices")
+let questionContent = document.querySelector(".questions");
+
+
 
 let score;
 let timerCount;
+let currentQuestionIndex = 0;
 
 function startGame() {
     timerCount = 5;
@@ -22,8 +28,29 @@ function startTimer() {
     }, 1000)
 }
 
-function renderGame() {
-    
+function displayQuestion() {
+    const questionTitle = document.getElementById("#question-title")
+    const questionContent = document.getElementById("#questions")
+    const questionChoices = document.getElementById('#choices')
+
+    if (currentQuestionIndex < questions.length) {
+        const currentQuestion = questions[currentQuestionIndex];
+
+        questionContent.textContent = currentQuestion.question;
+
+        questionChoices.innerHTML = "";
+        currentQuestion.options.forEach((option) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = option;
+            listItem.addEventListener("click", () => checkAnswer(option));
+            optionsList.appendChild(listItem);
+        });
+    } else {
+        questionContent.textContent = "Quiz complete"
+        options.innerHTML = "";
+        document.getElementById()
+    }
+
 }
 
 // Event listener to start game when button is pressed
