@@ -26,6 +26,52 @@ const initialsInput = document.getElementById("initials");
 const submitButton = document.getElementById("submit");
 const feedbackElement = document.getElementById("feedback");
 
+let currentQuestionIndex = 0;
+let timer;
+let timeRemaining = 60;
+let score = 0;
+
+
+function startQuiz() {
+    startButton.style.display = "none";
+    questionsContainer.style.display = "block";
+    displayQuestion();
+    startTimer();
+  }
+
+  function displayQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    document.getElementById("question-title").textContent = currentQuestion.question;
+    choicesContainer.innerHTML = "";
+  
+    currentQuestion.choices.forEach((choice) => {
+      const choiceButton = document.createElement("button");
+      choiceButton.textContent = choice;
+      choiceButton.addEventListener("click", () => checkAnswer(choice));
+      choicesContainer.appendChild(choiceButton);
+    });
+  }
+
+  function checkAnswer(choice) {
+    const currentQuestion = questions[currentQuestionIndex];
+  
+    if (choice === currentQuestion.correctAnswer) {
+      feedbackElement.textContent = "Correct!";
+      score++;
+    } else {
+      feedbackElement.textContent = "Wrong! -10 seconds";
+      timeRemaining -= 10;
+    }
+  
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+        displayQuestion();
+      } else {
+        endQuiz();
+      }
+    }
+
 // PSEUDOCODE - GENERAL GAME LOGIC
 // When start button is pressed, timer starts and first question appears
 // So the questions are called from the questions list, each question has a button players click to submit their answers
